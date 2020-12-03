@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Teko:wght@500&display=swap');
+        </style>
+        <link rel="stylesheet" href="styles.css">
+        <script type="text/javascript" src="chartDrawing.js"></script>
+    </head>
+    <body>
+        <div class="content">
+            <div class="controls">
+                <label for="difficulty">Difficulty</label>
+                <select name="difficulty" id="difficulty">
+                    <option value="basic">Basic</option>
+                    <option value="standard" selected="selected">Standard</option>
+                    <option value="uncommon">Uncommon</option>
+                    <option value="advanced">Advanced</option>
+                </select>
+                <button id="GenerateTree">Generate Tree</button>
+            </div>
+            <div class="SVGImage">
+                <svg id="nodeChart">
+                </svg>
+            </div>
+        </div>
+    </body>
+</html>
