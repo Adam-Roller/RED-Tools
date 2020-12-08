@@ -10,14 +10,23 @@
     <body>
         <div class="content">
             <div class="controls">
-                <label for="difficulty">Difficulty</label>
-                <select name="difficulty" id="difficulty">
-                    <option value="basic">Basic</option>
-                    <option value="standard" selected="selected">Standard</option>
-                    <option value="uncommon">Uncommon</option>
-                    <option value="advanced">Advanced</option>
-                </select>
-                <button id="GenerateTree">Generate Tree</button>
+                <div class="difficulty">
+                    <label for="difficulty">Difficulty</label>
+                    <select name="difficulty" id="difficulty">
+                        <option value="basic">Basic</option>
+                        <option value="standard" selected="selected">Standard</option>
+                        <option value="uncommon">Uncommon</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+                <div class="Generate">
+                    <button id="GenerateTree">Generate Tree</button>
+                </div>
+                <hr/>
+                <div class="Selection">
+                    <textarea id="selectText" disabled></textarea>
+                    <button id="applySelect" disabled>Apply Changes</button>
+                </div>
             </div>
             <div class="SVGImage">
                 <svg id="nodeChart">

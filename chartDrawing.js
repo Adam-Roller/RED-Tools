@@ -13,6 +13,7 @@ const svgId         = "#nodeChart";
 const difficultyId  = "#difficulty";
 const fillColor     = "#FFFFFF";
 const strokeColor   = "#FF0000";
+const selectColor   = "#00FF00";
 const strokeWidth   = 2;
 const rectWidth     = 200;
 const rectHeight    = 50;
@@ -20,12 +21,14 @@ const textHeight    = 10;
 const vPadding      = 50;
 const hPadding      = 100;
 const nodeClass     = "floorRect";
+const rectClass     = "boundingRect";
 
 // Globals
 let nodeCount       = 0;
 let rootNode        = null;
 let maxDepth        = 0;
 let totalBranches   = 0;
+let selectedNode    = null;
 
 // Floor Rolling Tables
 let rerollNums = new Set();
@@ -298,6 +301,8 @@ function displayNode(node, xMin, xMax, y) {
     group.appendChild(rect);
     group.appendChild(text);
 
+    group.addEventListener("click", selectNode);
+
     if (node.children.length == 1) {
         // Create connecting line
         const line = document.createElementNS(svgNamespace, 'line');
@@ -343,7 +348,43 @@ function clearTree() {
     }
 }
 
+function selectNode(event) {
+    // Clear highlight from previous selection
+    if (selectedNode != null) {
+        selectedNode.querySelector('rect').setAttribute('stroke', strokeColor);
+    }
+
+    // The event target is likely not the group, select the group.
+    const target = event.target;
+    if (target.nodeName == "g") {
+        selectedNode = target;
+    } else {
+        selectedNode = target.parentNode;
+    }
+
+    // Highlight the selected rectangle
+    const rect = selectedNode.querySelector('rect');
+    rect.setAttribute('stroke', selectColor);
+
+    // Add the text to the editing area
+    const textArea = document.querySelector("#selectText");
+    const applyButton = document.querySelector("#applySelect");
+    const text = selectedNode.querySelector('text');
+
+    textArea.value = text.textContent;
+    textArea.disabled = false;
+    applyButton.disabled = false;
+}
+
+function applySelectionChanges(event) {
+    const textArea = document.querySelector("#selectText");
+    const text = selectedNode.querySelector('text');
+
+    text.textContent = textArea.value;
+}
+
 // Add EventListeners
 document.addEventListener("DOMContentLoaded", function() {
     document.querySelector('#GenerateTree').addEventListener("click", generateTree);
+    document.querySelector('#applySelect').addEventListener("click", applySelectionChanges);
 });
